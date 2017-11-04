@@ -1,0 +1,29 @@
+version: '3'
+
+volumes:
+  db_data:
+
+services:
+  nginx:
+    image: tron:lb
+    ports:
+      - "80:80"
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/tron.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+  db:
+    image: tron:db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=lewy
+      - POSTGRES_PASSWORD=aaa
+  tron:
+    image: tron:app
+    volumes:
+      - /home/srvndo/Projects/AI/tron/tron_backend:/root/tron_backend
+    environment:
+      - DB_USER=lewy
+      - DB_PASSWORD=aaa
+      - DB_HOST=db
+      - DJANGO_SETTINGS_MODULE=tron_backend.settings
+    command: /bin/bash -f "/root/start.sh"

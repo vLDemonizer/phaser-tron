@@ -9,7 +9,7 @@ RUN apt-get update --fix-missing && \
         supervisor \
         vim
 
-WORKDIR /root/tron/
+WORKDIR /root/tron_backend/
 
 RUN service supervisor stop
 
@@ -24,4 +24,6 @@ ADD /docker/app/start.sh /root/start.sh
 RUN chmod 700 /root/start.sh
 
 EXPOSE 80
+
+CMD ['/root/start.sh']
 

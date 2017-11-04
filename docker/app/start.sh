@@ -4,7 +4,7 @@ cd /root/
 
 pip install -r requirements.txt
 
-cd tron
+cd tron_backend
 
 python manage.py makemigrations --noinput
 
