@@ -1,0 +1,4 @@
+cache
+migrations
+node_modules
+*.pyc
